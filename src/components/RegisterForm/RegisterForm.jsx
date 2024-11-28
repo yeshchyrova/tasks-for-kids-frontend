@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { register as registerOperation } from "../../redux/auth/auth-operations";
 
+
 export const RegisterForm = () => {
   const [step, setStep] = useState(1);
   const [user, setUser] = useState({
@@ -25,7 +26,7 @@ export const RegisterForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm();
 
   const onNextStep = ({ userEmail, userName, userPassword, userRole }) => {
@@ -44,7 +45,7 @@ export const RegisterForm = () => {
 
   const onSubmit = ({ memberName, memberEmail }) => {
     const role = user.userRole === "parent" ? "child" : "parent";
-    setFamilyMember({ memberName, memberEmail, role });
+    // setFamilyMember({ memberName, memberEmail, role });
     const finalData = {
       user: {
         name: user.userName,
@@ -60,7 +61,7 @@ export const RegisterForm = () => {
     };
     console.log("finalData: ", finalData);
     dispatch(registerOperation(finalData));
-    reset()
+    reset();
   };
 
   return (
@@ -92,7 +93,7 @@ export const RegisterForm = () => {
               defaultValue={user.userPassword}
             />
             {errors.userPassword && <span>This field is required</span>}
-{/* 99 - 119 should reuse code */}
+            {/* 99 - 119 should reuse code */}
             <div>
               <label>
                 <input

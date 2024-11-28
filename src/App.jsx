@@ -7,26 +7,20 @@ import { lazy, Suspense, useEffect } from "react";
 import { getCurrentUser } from "./redux/auth/auth-operations";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { RestrictedRoute } from "./components/RestrictedRoute";
+import { ParentDashboard } from "./pages/parents/ParentDashboard";
+import { ChildDashboard } from "./pages/children/ChildDashboard";
+import { ParentSharedLayout } from "./components/SharedLayout/parent/ParentSharedLayout";
 
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
-const AuthContent = lazy(() => import("./components/AuthContent"));
+// const AuthContent = lazy(() => import("./components/AuthContent"));
 // const HomePage = lazy(() => import("./pages/HomePage"));
 
 // TODO: добавить компонент not found и логику редиректа
-const ROLE = "parent";
-
-export const TEMP_USER_DATA = {
-  name: "Alina",
-  email: "alina@gmail.com",
-  id: 213,
-  childId: 45,
-  childId2: 46,
-};
 
 function App() {
   const dispatch = useDispatch();
-  const { isRefreshing } = useAuth();
+  const { isRefreshing, role } = useAuth();
 
   useEffect(() => {
     dispatch(getCurrentUser());
@@ -53,23 +47,11 @@ function App() {
           </Suspense>
         }
       />
-      <Route path="/" element={<SharedLayout />}>
-        <Route
-          path="parents"
-          element={<PrivateRoute component={<AuthContent />} />}
-        />
-        {/* <Route
-          path=":parentId/:childId/tasks"
-          element={
-            ROLE === "parent" ? (
-              <HomePage />
-            ) : (
-              <main>
-                <p>child dashboard</p>
-              </main>
-            )
-          }
-        /> */}
+      <Route
+        path="/parent"
+        element={<PrivateRoute component={<ParentSharedLayout />} />}
+      >
+        <Route index element={<ParentDashboard />}></Route>
       </Route>
       <Route
         path="*"

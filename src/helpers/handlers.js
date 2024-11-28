@@ -8,14 +8,15 @@ export const handleError = (state, { payload }) => {
   state.error = payload;
 };
 
-export const handleFulfilled = (state) => {
+export const handleFulfilled = (state, { payload }) => {
   state.isLoading = false;
   state.error = null;
-};
-
-export const handleGetAllParentsFulfilled = (state, { payload }) => {
   state.items = payload;
 };
+
+// export const handleGetAllParentsFulfilled = (state, { payload }) => {
+//   state.items = payload;
+// };
 // export const handleAddParentFulfilled = (state, { payload }) => {
 //   state.items.push(payload);
 // };

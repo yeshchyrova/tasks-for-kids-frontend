@@ -11,30 +11,37 @@ const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = "";
 };
 
-// post /register
-// credentials = {user: {name, email, password, role}, member: {name, email, role}}
 export const register = createAsyncThunk(
   "auth/register",
   async (credentials, { rejectWithValue }) => {
     try {
       const res = await axios.post("/register", credentials);
-      setAuthHeader(res.data.token);
-      return res.data;
+      setAuthHeader(res.headers.Authorization);
+      // setAuthHeader(res.data.token);
+      console.log("Data after registration: ", res.data);
+      console.log("Token from header (registration): ", res.headers.Authorization);
+      return { user: res.data, token: res.headers.Authorization };
+      // setAuthHeader(res.data.token);
+      // return res.data;
     } catch (e) {
       return rejectWithValue(e.message);
     }
   }
 );
 
-// post /login
-// credentials: {email, password, role}
 export const login = createAsyncThunk(
   "auth/login",
   async (credentials, { rejectWithValue }) => {
     try {
       const res = await axios.post("/login", credentials);
-      setAuthHeader(res.data.token);
-      return res.data;
+      setAuthHeader(res.headers.Authorization);
+      // setAuthHeader(res.data.token);
+      console.log("Data after login: ", res.data);
+      console.log(
+        "Token from header (login): ",
+        res.headers.Authorization
+      );
+      return { user: res.data, token: res.headers.Authorization };
     } catch (e) {
       rejectWithValue(e.message);
     }

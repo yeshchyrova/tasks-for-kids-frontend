@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { parentsReducer } from "./parents/parents-slice";
 import {
   persistStore,
   persistReducer,
@@ -12,6 +11,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { authReducer } from "./auth/auth-slice";
+import { childrenReducer } from "./children/children-slice";
 
 // Persisting token field from auth slice to localstorage
 const authPersistConfig = {
@@ -23,7 +23,8 @@ const authPersistConfig = {
 export const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
-    parents: parentsReducer,
+    children: childrenReducer,
+    // parents: parentsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getCurrentUser, login, logout, register } from "./auth-operations";
 
 const initialState = {
-  user: { name: null, email: null, role: null, id: null },
+  user: { name: null, login: null, role: null, id: null, familyId: null },
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
@@ -24,7 +24,14 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
       })
       .addCase(logout.fulfilled, (state) => {
-        state.user = { name: null, email: null };
+        state.user = {
+          name: null,
+          login: null,
+          role: null,
+          id: null,
+          familyId: null,
+          token: null
+        };
         state.token = null;
         state.isLoggedIn = false;
       })
@@ -39,6 +46,15 @@ const authSlice = createSlice({
       .addCase(getCurrentUser.rejected, (state) => {
         state.isRefreshing = false;
         state.isLoggedIn = false;
+        state.user = {
+          name: null,
+          login: null,
+          role: null,
+          id: null,
+          familyId: null,
+          token: null,
+        };
+        state.token = null;
       });
   },
 });

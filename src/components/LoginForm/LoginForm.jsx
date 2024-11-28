@@ -13,7 +13,10 @@ export const LoginForm = () => {
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    dispatch(login(data));
+    const updatedData = {login: data.email, password: data.password}
+    // console.log(updatedData);
+    const userData = dispatch(login(updatedData));
+    console.log(userData);
     reset();
   };
 
@@ -25,25 +28,6 @@ export const LoginForm = () => {
       <label>Password</label>
       <input type="password" {...register("password", { required: true })} />
       {errors.password && <span>This field is required</span>}
-      <div>
-        <label>
-          <input
-            type="radio"
-            value="parent"
-            {...register("role", { required: true })}
-          />
-          Parent
-        </label>
-        <label>
-          <input
-            type="radio"
-            value="child"
-            {...register("role", { required: true })}
-          />
-          Child
-        </label>
-        {errors.role && <span>Please select a role</span>}
-      </div>
       <button type="submit">Login</button>
     </form>
   );
