@@ -1,37 +1,32 @@
 import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { Box, Collapsible } from "@chakra-ui/react";
+import { Box, Collapsible, Flex } from "@chakra-ui/react";
 import { useChildren } from "../../../../hooks/useChildren";
+import { formatName } from "../../../../helpers/utils";
 
 export const SideBar = () => {
   const { children } = useChildren();
 
-  useEffect(() => {
-    console.log("Children is here: ", children);
-  }, [children]);
 
-  const formatName = (name) => {
-    if (!name) return "";
-    return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-  };
 
   return (
-    <Box
+    <Flex
       position="fixed"
       zIndex={10}
       height="100%"
-      width="300px"
-      bgColor="#666666"
+      width="250px"
+      background="#b4abab"
       left={0}
+      direction="column"
     >
       <NavLink to="/parent">Home</NavLink>
       <NavLink to="/confirmation">Need confirmation</NavLink>
       <div>
         <p>Stats: </p>
-        {children.map((child) => (
-          <li key={child.id}>
-            <NavLink to={"/stats/" + child.id}>
-              {formatName(child.name)}
+        {children.map(({id, name}) => (
+          <li key={id}>
+            <NavLink to={`/stats/${id}`}>
+              {formatName(name)}
             </NavLink>
           </li>
         ))}
@@ -47,6 +42,6 @@ export const SideBar = () => {
         </Collapsible.Content>
       </Collapsible.Root> */}
       <NavLink to={"/settings"}>Settings</NavLink>
-    </Box>
+    </Flex>
   );
 };

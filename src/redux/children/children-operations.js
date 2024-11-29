@@ -7,10 +7,9 @@ export const getChildrenByFamilyId = createAsyncThunk(
   "children/getChildrenByFamilyId",
   async (familyId, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/children/${familyId}`);
+      const { data } = await axios.get(`/${familyId}/children`);
       return data; // list of children
     } catch (e) {
-      console.log("Error")
       return rejectWithValue(e.message);
     }
   }

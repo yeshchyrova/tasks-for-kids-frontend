@@ -1,6 +1,5 @@
 import React, { Suspense, useEffect } from "react";
-// import { Header } from "./Header/Header";
-// import { SideBar } from "./SideBar/SideBar";
+import { Header } from "./Header/Header";
 import { Outlet } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
 import { getChildrenByFamilyId } from "../../../redux/children/children-operations";
@@ -16,12 +15,14 @@ export const ParentSharedLayout = () => {
   }, [dispatch, user.familyId]);
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <SideBar />
-      <Suspense fallback={null}>
-        {/* добавить сюда контейнер который будет ограничивать ширину всего контента */}
-        <Outlet />
-      </Suspense>
+      <main className="ml-[300px]">
+        <Suspense fallback={null}>
+          {/* добавить сюда контейнер который будет ограничивать ширину всего контента */}
+          <Outlet />
+        </Suspense>
+      </main>
     </>
   );
 };

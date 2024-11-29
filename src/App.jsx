@@ -10,6 +10,7 @@ import { RestrictedRoute } from "./components/RestrictedRoute";
 import { ParentDashboard } from "./pages/parents/ParentDashboard";
 import { ChildDashboard } from "./pages/children/ChildDashboard";
 import { ParentSharedLayout } from "./components/SharedLayout/parent/ParentSharedLayout";
+import { Task } from "./pages/Task";
 
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
@@ -20,7 +21,7 @@ const LoginPage = lazy(() => import("./pages/LoginPage"));
 
 function App() {
   const dispatch = useDispatch();
-  const { isRefreshing, role } = useAuth();
+  const { isRefreshing } = useAuth();
 
   useEffect(() => {
     dispatch(getCurrentUser());
@@ -52,6 +53,7 @@ function App() {
         element={<PrivateRoute component={<ParentSharedLayout />} />}
       >
         <Route index element={<ParentDashboard />}></Route>
+        <Route path=":childId/tasks" element={<Task />} />
       </Route>
       <Route
         path="*"
