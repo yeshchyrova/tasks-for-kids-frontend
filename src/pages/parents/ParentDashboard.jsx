@@ -1,15 +1,14 @@
 import React, { Suspense, useEffect } from "react";
-import { NavLink, Outlet, useParams } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
-import { useChildren } from "../../hooks/useChildren";
+import { NavLink, Outlet } from "react-router-dom";
 import { formatName } from "../../helpers/utils";
+import { useSelector } from "react-redux";
+import { selectChildren } from "../../redux/children/children-selectors";
 
 export const ParentDashboard = () => {
-  const { children } = useChildren();
+  const children = useSelector(selectChildren);
   useEffect(() => {
     console.log(children)
   }, [children]);
-  // const { user, isRefreshing } = useAuth();
   return (
       <>
         <h2>Parent Dashboard</h2>

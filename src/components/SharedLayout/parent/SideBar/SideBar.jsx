@@ -1,14 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
-import { Box, Collapsible, Flex } from "@chakra-ui/react";
-import { useChildren } from "../../../../hooks/useChildren";
+import { Flex } from "@chakra-ui/react";
 import { formatName } from "../../../../helpers/utils";
+import { useSelector } from "react-redux";
+import { selectChildren } from "../../../../redux/children/children-selectors";
 
 export const SideBar = () => {
-  const { children } = useChildren();
-
-
-
+  const children = useSelector(selectChildren);
   return (
     <Flex
       position="fixed"

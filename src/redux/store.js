@@ -12,6 +12,7 @@ import {
 import storage from "redux-persist/lib/storage";
 import { authReducer } from "./auth/auth-slice";
 import { childrenReducer } from "./children/children-slice";
+import { tasksReducer } from "./tasks/tasks-slice";
 
 // Persisting token field from auth slice to localstorage
 const authPersistConfig = {
@@ -24,6 +25,7 @@ export const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
     children: childrenReducer,
+    tasks: tasksReducer
     // parents: parentsReducer,
   },
   middleware: (getDefaultMiddleware) =>
