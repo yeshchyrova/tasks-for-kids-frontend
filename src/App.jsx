@@ -10,14 +10,13 @@ import { RestrictedRoute } from "./components/RestrictedRoute";
 import { ParentDashboard } from "./pages/parents/ParentDashboard";
 import { ChildDashboard } from "./pages/children/ChildDashboard";
 import { ParentSharedLayout } from "./components/SharedLayout/parent/ParentSharedLayout";
-import { Task } from "./pages/Task";
+import { TasksList } from "./pages/TasksList";
+import { TaskPage } from "./components/TaskPage";
 
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 // const AuthContent = lazy(() => import("./components/AuthContent"));
 // const HomePage = lazy(() => import("./pages/HomePage"));
-
-// TODO: добавить компонент not found и логику редиректа
 
 function App() {
   const dispatch = useDispatch();
@@ -27,44 +26,55 @@ function App() {
     dispatch(getCurrentUser());
   }, [dispatch]);
 
-  return isRefreshing ? (
-    <p>Loading...</p>
-  ) : (
-    // <div>
-    <Routes>
-      <Route
-        path="/register"
-        element={
-          <Suspense fallback={null}>
-            <RestrictedRoute component={<RegisterPage />} />
-          </Suspense>
-        }
-      />
-      <Route
-        path="/login"
-        element={
-          <Suspense fallback={null}>
-            <RestrictedRoute component={<LoginPage />} />
-          </Suspense>
-        }
-      />
-      <Route
-        path="/parent"
-        element={<PrivateRoute component={<ParentSharedLayout />} />}
-      >
-        <Route index element={<ParentDashboard />}></Route>
-        <Route path=":childId/tasks" element={<Task />} />
-      </Route>
-      <Route
-        path="*"
-        element={
-          <p>
-            Page not found. <a href="/login">Go to Login Page</a>
-          </p>
-        }
-      />
-    </Routes>
-    // </div>
+  return (
+    !isRefreshing && (
+      <div>
+        <Routes>
+          <Route
+            path="/register"
+            element={
+              <Suspense fallback={null}>
+                <RestrictedRoute component={<RegisterPage />} />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <Suspense fallback={null}>
+                <RestrictedRoute component={<LoginPage />} />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/"
+            element={<PrivateRoute component={<ParentSharedLayout />} />}
+          >
+            <Route
+              path="parent"
+              element={<PrivateRoute component={<ParentDashboard />} />}
+            >
+              <Route
+                path=":childId/tasks"
+                element={<PrivateRoute component={<TasksList />} />}
+              />
+            </Route>
+            <Route
+              path="parent/:childId/tasks/:taskId"
+              element={<PrivateRoute component={<TaskPage />} />}
+            />
+          </Route>
+          <Route
+            path="*"
+            element={
+              <p>
+                Page not found. <a href="/login">Go to Login Page</a>
+              </p>
+            }
+          />
+        </Routes>
+      </div>
+    )
   );
 }
 
