@@ -28,7 +28,7 @@ function App() {
 
   return (
     !isRefreshing && (
-      <div>
+      <>
         <Routes>
           <Route
             path="/register"
@@ -73,7 +73,7 @@ function App() {
             }
           />
         </Routes>
-      </div>
+      </>
     )
   );
 }
