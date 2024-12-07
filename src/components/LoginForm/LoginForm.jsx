@@ -19,7 +19,6 @@ export const LoginForm = () => {
 
   const onSubmit = (data) => {
     const updatedData = { login: data.email, password: data.password };
-    // console.log(updatedData);
     const userData = dispatch(login(updatedData));
     console.log(userData);
     reset();
@@ -37,17 +36,17 @@ export const LoginForm = () => {
           {...register("email", { required: true })}
         />
         {errors.email && (
-          <span className="absolute -bottom-5 left-1 text-[#f4a19b] text-xs">
+          <span className="absolute -bottom-5 left-0 text-[#f4a19b] text-xs">
             Email is required
           </span>
         )}
       </div>
-      <div className="w-full relative mb-[40px]">
+      <div className="w-full relative mb-8">
         <div className="relative  mb-[4px]">
           <label className="text-white text-sm font-light">Password</label>
           <button
             type="button"
-            className="text-white text-sm font-light absolute right-[4px] bottom-0"
+            className="text-white hover:text-[#facf35] transition-colors text-sm font-light absolute right-[4px] bottom-0"
             onClick={updateVisibility}
           >
             {isVisible ? "Hide" : "Show"}
@@ -59,13 +58,13 @@ export const LoginForm = () => {
           {...register("password", { required: true })}
         />
         {errors.password && (
-          <span className="absolute -bottom-5 left-1 text-[#f4a19b] text-xs">
-            This field is required
+          <span className="absolute -bottom-5 left-0 text-[#f4a19b] text-xs">
+            Password is required
           </span>
         )}
       </div>
       <button
-        className="w-28 h-9 bg-[#6f5225] rounded-2xl border font-light border-[#fbb13c] text-center text-white ml-auto block hover:bg-[#c89035] focus:bg-[#c89035] transition-colors"
+        className="py-2 px-[28px] bg-[#6f5225] rounded-2xl border font-light border-[#fbb13c] text-center text-white ml-auto block hover:bg-[#c89035] focus:bg-[#c89035] transition-colors text-sm"
         type="submit"
       >
         Log in

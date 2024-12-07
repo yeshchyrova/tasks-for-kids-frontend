@@ -2,12 +2,10 @@
 import React from "react";
 import { RegisterForm } from "../components/RegisterForm/RegisterForm";
 
-export default function RegisterPage () {
-  return <RegisterForm/>;
-};
-
-// Product.propTypes = {
-//   imgUrl: PropTypes.string,
-//   name: PropTypes.string.isRequired,
-//   price: PropTypes.number.isRequired,
-// };
+export default function RegisterPage() {
+  return (
+    <section className="bg-signin-dark min-h-screen w-full flex justify-center items-center font-['Poppins']">
+      <RegisterForm />
+    </section>
+  );
+}

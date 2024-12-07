@@ -13,7 +13,10 @@ export default function LoginPage() {
           </p>
           <p className="text-white text-sm font-light">
             Don’t have an account?{" "}
-            <a className="underline text-white" href="/register">
+            <a
+              className="underline text-white transition-colors hover:text-[#facf35]"
+              href="/register"
+            >
               Sign up
             </a>
           </p>
