@@ -15,19 +15,17 @@ import { TaskPage } from "./components/TaskPage";
 
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
-// const AuthContent = lazy(() => import("./components/AuthContent"));
-// const HomePage = lazy(() => import("./pages/HomePage"));
 
 function App() {
   const dispatch = useDispatch();
-  const { isRefreshing } = useAuth();
+  const { isLoading } = useAuth();
 
   useEffect(() => {
     dispatch(getCurrentUser());
   }, [dispatch]);
 
   return (
-    !isRefreshing && (
+    !isLoading && (
       <>
         <Routes>
           <Route

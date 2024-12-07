@@ -4,4 +4,4 @@ export const selectIsLoading = (state) => state.tasks.isLoading;
 
 export const selectError = (state) => state.tasks.error;
 
-export const selectTasksInfo = state => state.tasks;
+export const selectTasksInfo = (state) => state.tasks;

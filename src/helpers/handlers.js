@@ -13,14 +13,3 @@ export const handleFulfilled = (state, { payload }) => {
   state.error = null;
   state.items = payload;
 };
-
-// export const handleGetAllParentsFulfilled = (state, { payload }) => {
-//   state.items = payload;
-// };
-// export const handleAddParentFulfilled = (state, { payload }) => {
-//   state.items.push(payload);
-// };
-
-// export const handleDeleteContactFulfilled = (state, { payload }) => {
-//   state.items = state.items.filter((contact) => contact.id !== payload.id);
-// };

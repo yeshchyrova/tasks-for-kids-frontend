@@ -17,11 +17,7 @@ export const register = createAsyncThunk(
     try {
       const res = await axios.post("/register", credentials);
       setAuthHeader(res.headers["authorization"]);
-      // setAuthHeader(res.data.token);
-      console.log("Data after registration: ", res.data);
-      console.log("Token from header (registration): ", res.headers.Authorization);
       return { user: res.data, token: res.headers["authorization"] };
-      // return res.data;
     } catch (e) {
       return rejectWithValue(e.message);
     }
@@ -34,10 +30,9 @@ export const login = createAsyncThunk(
     try {
       const res = await axios.post("/login", credentials);
       setAuthHeader(res.headers["authorization"]);
-      // setAuthHeader(res.data.token);
       return { user: res.data, token: res.data.token };
     } catch (e) {
-      rejectWithValue(e.message);
+      return rejectWithValue(e.status);
     }
   }
 );

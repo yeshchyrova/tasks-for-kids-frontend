@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { register as registerOperation } from "../../redux/auth/auth-operations";
 import { HiArrowLongRight, HiArrowLongLeft } from "react-icons/hi2";
 import { IconContext } from "react-icons/lib";
+import { Input } from "../forms/EnterForm/Input";
+import { PasswordInput } from "../forms/EnterForm/PasswordInput";
+import { FormBlock } from "../forms/EnterForm/FormBlock";
 
 export const RegisterForm = () => {
   const [step, setStep] = useState(1);
@@ -15,7 +17,7 @@ export const RegisterForm = () => {
     userRole: "",
   });
 
-  const [familyMember, setFamilyMember] = useState({
+  const [familyMember] = useState({
     memberName: "",
     memberEmail: "",
     memberRole: "",
@@ -51,18 +53,17 @@ export const RegisterForm = () => {
   };
 
   const onSubmit = ({ memberName, memberEmail }) => {
-    // setFamilyMember({ memberName, memberEmail, role });
     const finalData = {
-      user: {
+      parentDto: {
         name: user.userName,
-        email: user.userEmail,
+        login: user.userEmail,
         password: user.userPassword,
-        role: user.userRole,
+        role: "PARENT",
       },
-      member: {
+      childDto: {
         name: memberName,
-        email: memberEmail,
-        role: familyMember.memberRole,
+        login: memberEmail,
+        role: "CHILD",
       },
     };
     console.log("finalData: ", finalData);
@@ -73,81 +74,35 @@ export const RegisterForm = () => {
   return (
     <>
       {step === 1 && (
-        <div className="w-[475px] h-[483px] rounded-3xl border border-white px-[64px] bg-signin-blue">
-          <div className="w-full mb-[28px] mt-[56px] flex-col justify-center items-center inline-flex">
-            <p className="text-center text-white text-2xl font-['Poppins'] mb-[4px]">
-              Sign up
-            </p>
-            <p className="text-white text-sm font-light">
-              Already have an account?{" "}
-              <a
-                className="underline text-white hover:text-[#facf35] transition-colors"
-                href="/login"
-              >
-                Sign in
-              </a>
-            </p>
-          </div>
+        <FormBlock type="up1">
           <form onSubmit={handleSubmit(onNextStep)} autoComplete="off">
-            <div className="mb-[24px] w-full relative">
-              <div className="mb-[4px]">
-                <label className="text-white text-sm font-light">Name</label>
-              </div>
-              <input
-                className="rounded-xl border border-white w-full h-[35px] outline-none px-[12px] bg-signin-blue text-white text-sm hover:border-[#fbb13c] focus:border-[#fbb13c] transition-colors"
-                {...register("userName", { required: true })}
-                defaultValue={user.userName}
-              />
-              {errors.userName && (
-                <span className="absolute -bottom-5 left-0 text-[#f4a19b] text-xs">
-                  Name is required
-                </span>
-              )}
-            </div>
+            <Input
+              type="name"
+              toRegister="userName"
+              register={register}
+              error={errors.userName}
+              classes={{ mb: "mb-[24px]", ab: "-bottom-5" }}
+              defaultValue={user.userName}
+            />
 
-            <div className="mb-[24px] w-full relative">
-              <div className="mb-[4px]">
-                <label className="text-white text-sm font-light">Email</label>
-              </div>
-              <input
-                className="rounded-xl border border-white w-full h-[35px] outline-none px-[12px] bg-signin-blue text-white text-sm hover:border-[#fbb13c] focus:border-[#fbb13c] transition-colors"
-                type="email"
-                {...register("userEmail", { required: true })}
-                defaultValue={user.userEmail}
-              />
-              {errors.userEmail && (
-                <span className="absolute -bottom-5 left-0 text-[#f4a19b] text-xs">
-                  Email is required
-                </span>
-              )}
-            </div>
+            <Input
+              type="email"
+              toRegister="userEmail"
+              register={register}
+              error={errors.userEmail}
+              classes={{ mb: "mb-[24px]", ab: "-bottom-5" }}
+              defaultValue={user.userEmail}
+            />
 
-            <div className="mb-[20px] w-full relative">
-              <div className="mb-[4px] relative">
-                <label className="text-white text-sm font-light">
-                  Password
-                </label>
-                <button
-                  type="button"
-                  className="text-white hover:text-[#facf35] transition-colors text-sm font-light absolute right-[4px] bottom-0"
-                  onClick={updateVisibility}
-                >
-                  {isVisible ? "Hide" : "Show"}
-                </button>
-              </div>
-              <input
-                className="rounded-xl border border-white w-full h-[35px] outline-none px-[12px] bg-signin-blue text-white text-sm hover:border-[#fbb13c] focus:border-[#fbb13c] transition-colors"
-                type={isVisible ? "text" : "password"}
-                {...register("userPassword", { required: true })}
-                defaultValue={user.userPassword}
-              />
-              {errors.userPassword && (
-                <span className="absolute -bottom-5 left-0 text-[#f4a19b] text-xs">
-                  Password is required
-                </span>
-              )}
-            </div>
-            {/* should reuse code */}
+            <PasswordInput
+              isVisible={isVisible}
+              updateVisibility={updateVisibility}
+              register={register}
+              error={errors.userPassword}
+              classes={{ mb: "mb-[20px]" }}
+              toRegister="userPassword"
+            />
+
             <button type="submit" className="ml-auto block">
               <IconContext.Provider
                 value={{
@@ -161,47 +116,29 @@ export const RegisterForm = () => {
               </IconContext.Provider>
             </button>
           </form>
-        </div>
+        </FormBlock>
       )}
       {step === 2 && (
-        <div className="w-[472px] h-[404px] bg-signin-blue rounded-3xl border border-white px-[68px]">
-          <p className="text-center text-white text-2xl  mb-[24px] mt-[56px]">
-            Add your child
-          </p>
+        <FormBlock type="up2">
           <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-            <div className="mb-[24px] w-full relative">
-              <div className="mb-[4px]">
-                <label className="text-white text-sm font-light">Name</label>
-              </div>
-              <input
-                className="rounded-xl border border-white w-full h-[35px] outline-none px-[12px] bg-signin-blue text-white text-sm hover:border-[#fbb13c] focus:border-[#fbb13c] transition-colors"
-                {...register("memberName", { required: true })}
-                defaultValue={familyMember.memberName}
-                type="text"
-              />
-              {errors.memberName && (
-                <span className="absolute -bottom-5 left-0 text-[#f4a19b] text-xs">
-                  Name is required
-                </span>
-              )}
-            </div>
+            <Input
+              type="name"
+              toRegister="memberName"
+              register={register}
+              error={errors.memberName}
+              classes={{ mb: "mb-[24px]", ab: "-bottom-5" }}
+              defaultValue={familyMember.memberName}
+            />
 
-            <div className="mb-[4px] w-full relative">
-              <div className="mb-[4px]">
-                <label className="text-white text-sm font-light">Email</label>
-              </div>
-              <input
-                className="rounded-xl border border-white w-full h-[35px] outline-none px-[12px] bg-signin-blue text-white text-sm hover:border-[#fbb13c] focus:border-[#fbb13c] transition-colors"
-                type="email"
-                {...register("memberEmail", { required: true })}
-                defaultValue={familyMember.memberEmail}
-              />
-              {errors.memberEmail && (
-                <span className="absolute bottom-[-35px] left-0 text-[#f4a19b] text-xs">
-                  Email is required
-                </span>
-              )}
-            </div>
+            <Input
+              type="email"
+              toRegister="memberEmail"
+              register={register}
+              error={errors.memberEmail}
+              classes={{ mb: "mb-[4px]", ab: "bottom-[-35px]" }}
+              defaultValue={familyMember.memberEmail}
+            />
+
             <p className="text-white text-[11px] font-normal mb-[26px]">
               We will send a temporary password on your child's email
             </p>
@@ -226,7 +163,7 @@ export const RegisterForm = () => {
               </button>
             </div>
           </form>
-        </div>
+        </FormBlock>
       )}
     </>
   );
