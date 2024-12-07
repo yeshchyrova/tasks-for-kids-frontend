@@ -46,7 +46,7 @@ function App() {
           />
           <Route
             path="/"
-            element={<PrivateRoute component={<ParentSharedLayout />} />}
+            element={<PrivateRoute component={<SharedLayout />} />}
           >
             <Route
               path="parent"

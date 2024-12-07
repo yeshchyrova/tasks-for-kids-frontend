@@ -13,17 +13,29 @@ export const ParentDashboard = () => {
   // }, [children]);
   return (
     <>
-      <p>Hello, {user.name}</p>
-        <ul>
-          {children.map(({id, name, login, familyId}) => (
-            <li key={id}><NavLink to={`/parent/${id}/tasks`}>{formatName(name)}</NavLink></li>
-          ))}
+      <p className="text-red text-[38px] font-semibold mb-3">
+        Hello, {user.name}
+      </p>
+      <ul className="flex justify-around mb-5">
+        {children.map(({ id, name }) => (
+          <li key={id}>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "text-blue text-xl font-semibold"
+                  : "text-dark text-xl font-semibold"
+              }
+              to={`/parent/${id}/tasks`}
+            >
+              {formatName(name)}
+            </NavLink>
+          </li>
+        ))}
       </ul>
       {/* */}
-        <Suspense fallback={null}>
-          {/* добавить сюда контейнер который будет ограничивать ширину всего контента */}
-          <Outlet />
-        </Suspense>
-      </>
+      <Suspense fallback={null}>
+        <Outlet />
+      </Suspense>
+    </>
   );
 };
