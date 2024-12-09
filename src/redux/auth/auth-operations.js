@@ -10,8 +10,6 @@ const setAuthHeader = (token) => {
 const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = "";
   localStorage.clear();
-  // localStorage.removeItem("persist:auth");
-  // localStorage.removeItem("lastVisitedPath");
 };
 
 export const register = createAsyncThunk(

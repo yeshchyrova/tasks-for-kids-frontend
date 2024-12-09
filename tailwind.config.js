@@ -17,23 +17,9 @@ module.exports = {
       white: "#FFF",
       black: "#000",
     },
-    // spacing: {
-    //   4: "4px",
-    //   8: "8px",
-    //   12: "12px",
-    //   20: "20px",
-    // },
-    // borderRadius: {
-    //   none: "0",
-    //   sm: "8px",
-    //   md: "12px",
-    //   lg: "16px",
-    //   lg2: "24px",
-    //   round: "50%"
-    // },
-    // fontFamily: {
-    //   sans: ["Poppins", "sans-serif"],
-    // },
+    fontFamily: {
+      sans: ["Poppins", "sans-serif"],
+    },
   },
   plugins: [],
 };

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getAllTasks } from "../redux/tasks/tasks-operations";
-import { selectTasksInfo } from "../redux/tasks/tasks-selectors";
-import { AddNewTaskModal } from "../components/modals/AddNewTaskModal";
-import { ShortTask } from "../components/Task/ShortTask";
+import { getAllTasks } from "../../redux/tasks/tasks-operations";
+import { selectTasksInfo } from "../../redux/tasks/tasks-selectors";
+import { AddNewTaskModal } from "../modals/AddNewTaskModal";
+import { ShortTask } from "./ShortTask";
 
 export const TasksList = () => {
   const { childId } = useParams();
@@ -26,7 +26,7 @@ export const TasksList = () => {
   return isLoading ? (
     <p>Loading tasks...</p>
   ) : (
-    <div>
+    <div className="w-full">
       <button
         type="button"
         onClick={openModal}
@@ -37,13 +37,15 @@ export const TasksList = () => {
       {error === 404 ? (
         <p>No tasks found :(</p>
       ) : (
-        <ul>
-          {items.map((item) => (
-            <li key={item.id}>
-              <ShortTask item={item} />
-            </li>
-          ))}
-        </ul>
+        <div className="min-h-[380px]">
+          <ul className="grid grid-cols-3 gap-y-11 w-full mb-5">
+            {items.map((item) => (
+              <li key={item.id}>
+                <ShortTask item={item} />
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
       {isOpen && <AddNewTaskModal closeFn={onClose} />}
     </div>

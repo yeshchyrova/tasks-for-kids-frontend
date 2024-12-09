@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getTaskById } from "../redux/tasks/tasks-operations";
 
 export const TaskPage = () => {
   const { taskId } = useParams();
-  const [task, setTask] = useState(null);
+  const [, setTask] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -14,7 +13,7 @@ export const TaskPage = () => {
     try {
       const data = await getTaskById(id);
       setTask(data);
-      console.log("Task from TaskPage: ",data)
+      console.log("Task from TaskPage: ", data);
       setIsLoading(false);
       setError(null);
     } catch (e) {
@@ -27,7 +26,5 @@ export const TaskPage = () => {
     fetchTask(taskId);
   }, [taskId]);
 
-  return isLoading ? <p>Loading...</p> : error ? <p>{error}</p> : <div>
-
-  </div>;
+  return isLoading ? <p>Loading...</p> : error ? <p>{error}</p> : <div></div>;
 };

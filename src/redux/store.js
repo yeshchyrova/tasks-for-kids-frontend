@@ -26,7 +26,6 @@ export const store = configureStore({
     auth: persistReducer(authPersistConfig, authReducer),
     children: childrenReducer,
     tasks: tasksReducer
-    // parents: parentsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

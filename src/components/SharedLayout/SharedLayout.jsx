@@ -3,9 +3,9 @@ import { Outlet } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useDispatch } from "react-redux";
 import { getChildrenByFamilyId } from "../../redux/children/children-operations";
-import { Header } from "./parent/Header/Header";
-import { SideBar } from "./parent/SideBar/SideBar";
 import { Footer } from "../Footer";
+import { Header } from "./Header";
+import { SideBar } from "./SideBar";
 
 export const SharedLayout = () => {
   const { user, role } = useAuth();
@@ -18,14 +18,14 @@ export const SharedLayout = () => {
     <>
       <Header />
       <SideBar role={role} userId={user.id} />
-      <main className=" bg-greybg font-['Poppins']">
+      <main className="font-['Poppins']">
         <div className=" ml-[250px] pt-[106px] px-16 ">
           <Suspense fallback={null}>
             <Outlet />
           </Suspense>
         </div>
       </main>
-      <Footer />
+        <Footer />
     </>
   );
 };

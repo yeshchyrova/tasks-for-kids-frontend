@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { LogoutModal } from "../../../modals/LogoutModal";
-import { useDispatch } from "react-redux";
-import { logout } from "../../../../redux/auth/auth-operations";
+import { LogoutModal } from "../modals/LogoutModal";
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);

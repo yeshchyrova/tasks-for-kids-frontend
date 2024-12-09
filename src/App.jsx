@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import "./App.css";
 import { SharedLayout } from "./components/SharedLayout/SharedLayout";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { useAuth } from "./hooks/useAuth";
 import { lazy, Suspense, useEffect } from "react";
 import { getCurrentUser } from "./redux/auth/auth-operations";
@@ -9,9 +9,8 @@ import { PrivateRoute } from "./components/PrivateRoute";
 import { RestrictedRoute } from "./components/RestrictedRoute";
 import { ParentDashboard } from "./pages/parents/ParentDashboard";
 import { ChildDashboard } from "./pages/children/ChildDashboard";
-import { ParentSharedLayout } from "./components/SharedLayout/parent/ParentSharedLayout";
-import { TasksList } from "./pages/TasksList";
-import { TaskPage } from "./components/TaskPage";
+import { TasksList } from "./components/Task/TasksList";
+import { TaskPage } from "./pages/TaskPage";
 import { useSaveCurrentPath } from "./hooks/useSaveCurrentPath ";
 
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));

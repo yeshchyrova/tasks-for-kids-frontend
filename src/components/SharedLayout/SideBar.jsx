@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { formatName } from "../../../../helpers/utils";
+import { Link, NavLink } from "react-router-dom";
+import { formatName } from "../../helpers/utils";
 import { useSelector } from "react-redux";
-import { selectChildren } from "../../../../redux/children/children-selectors";
+import { selectChildren } from "../../redux/children/children-selectors";
 
 export const SideBar = ({ role, userId }) => {
   const [isShown, setIsShown] = useState(false);
@@ -10,16 +10,21 @@ export const SideBar = ({ role, userId }) => {
   return (
     <div className="fixed top-0 z-10 min-h-screen w-[250px] bg-blue flex justify-center font-['Poppins']">
       <div className="w-[151px] mt-10">
-        <p className="text-white text-[32px] font-normal font-['Quando'] w-full mb-16 leading-none">
-          Tasks Manager
-        </p>
+        <div className="mb-16">
+          <Link
+            to={`/${role.toLowerCase()}`}
+            className="text-white text-[32px] font-normal font-['Quando'] w-full leading-none"
+          >
+            Tasks Manager
+          </Link>
+        </div>
         <ul className="flex flex-col gap-6 font-semibold">
           <li>
             <NavLink
               className={({ isActive }) =>
                 isActive
                   ? "mb-6 text-lg  text-yellow"
-                  : "mb-6 text-lg text-white"
+                  : "mb-6 text-lg text-white hover:text-yellow transition-colors"
               }
               to={role === "PARENT" ? "/parent" : "/child"}
             >
@@ -33,7 +38,7 @@ export const SideBar = ({ role, userId }) => {
                   className={({ isActive }) =>
                     isActive
                       ? "mb-6 text-lg text-yellow"
-                      : "mb-6 text-lg text-white"
+                      : "mb-6 text-lg text-white hover:text-yellow transition-colors"
                   }
                   to="/confirmation"
                 >
@@ -47,7 +52,7 @@ export const SideBar = ({ role, userId }) => {
                       setIsShown(!isShown);
                     }}
                     type="button"
-                    className="text-white text-lg border-none mb-[8px]"
+                    className="text-white text-lg border-none mb-[8px] hover:text-yellow transition-colors"
                   >
                     Statistics
                   </button>
@@ -59,7 +64,7 @@ export const SideBar = ({ role, userId }) => {
                             className={({ isActive }) =>
                               isActive
                                 ? "font-normal text-yellow"
-                                : "font-normal text-white"
+                                : "font-normal text-white hover:text-yellow transition-colors"
                             }
                             to={`/statistics/${id}`}
                           >

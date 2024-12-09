@@ -1,18 +1,16 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { formatName } from "../../helpers/utils";
 import { useSelector } from "react-redux";
 import { selectChildren } from "../../redux/children/children-selectors";
 import { useAuth } from "../../hooks/useAuth";
-import { LogoutModal } from "../../components/modals/LogoutModal";
 
 export const ParentDashboard = () => {
   const children = useSelector(selectChildren);
   const { user } = useAuth();
   const location = useLocation();
-  // console.log("current path: ", location.pathname);
   const isNotChosen = location.pathname === "/parent";
-
+  const idPath = location.pathname.slice(8, 10);
 
   return (
     <>
@@ -22,14 +20,15 @@ export const ParentDashboard = () => {
           <li key={id}>
             <NavLink
               className={({ isActive }) =>
-                isActive
-                  ? "text-blue text-xl font-semibold"
-                  : "text-dark text-xl font-semibold"
+                `text-lg font-semibold ${isActive ? "text-blue" : "text-dark"}`
               }
               to={`/parent/${id}/tasks`}
             >
               {formatName(name)}
             </NavLink>
+            {id == idPath && (
+              <div className="w-full h-[4px] bg-blue rounded-sm"></div>
+            )}
           </li>
         ))}
       </ul>

@@ -23,15 +23,3 @@ export const getTaskById = async (taskId) => {
     throw new Error(e.status);
   }
 }
-
-// export const getTaskById = createAsyncThunk(
-//   "tasks/getTaskById",
-//   async (taskId, { rejectWithValue }) => {
-//     try {
-//       const { data } = await axios.get(`/tasks/${taskId}`);
-//       return data;
-//     } catch (e) {
-//       return rejectWithValue(e.message);
-//     }
-//   }
-// );

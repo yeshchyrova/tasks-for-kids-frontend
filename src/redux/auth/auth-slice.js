@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getCurrentUser, login, logout, register } from "./auth-operations";
 import { handleError, handlePending } from "../../helpers/handlers";
-import { useNavigate } from "react-router-dom";
 
 const initialState = {
   user: { name: null, login: null, role: null, id: null, familyId: null },
@@ -35,7 +34,6 @@ const authSlice = createSlice({
           role: null,
           id: null,
           familyId: null,
-          token: null,
         };
         state.token = null;
         state.isLoggedIn = false;
@@ -57,7 +55,6 @@ const authSlice = createSlice({
           role: null,
           id: null,
           familyId: null,
-          token: null,
         };
         state.token = null;
       });

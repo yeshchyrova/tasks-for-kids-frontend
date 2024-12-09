@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* body {
-  font-family: 'Poppins'
-} */
+body {
+  background-color: #efefef;
+}
 
 :root:has(.no-doc-scroll) {
   overflow: hidden;
