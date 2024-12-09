@@ -9,6 +9,9 @@ const setAuthHeader = (token) => {
 
 const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = "";
+  localStorage.clear();
+  // localStorage.removeItem("persist:auth");
+  // localStorage.removeItem("lastVisitedPath");
 };
 
 export const register = createAsyncThunk(
@@ -19,7 +22,7 @@ export const register = createAsyncThunk(
       setAuthHeader(res.headers["authorization"]);
       return { user: res.data, token: res.headers["authorization"] };
     } catch (e) {
-      return rejectWithValue(e.message);
+      return rejectWithValue(e.status);
     }
   }
 );
@@ -41,10 +44,10 @@ export const logout = createAsyncThunk(
   "auth/logout",
   async (_, { rejectWithValue }) => {
     try {
-      await axios.post("/logout");
+      await axios.post("/api/logout");
       clearAuthHeader();
     } catch (e) {
-      return rejectWithValue(e.message);
+      return rejectWithValue(e.status);
     }
   }
 );
@@ -62,7 +65,7 @@ export const getCurrentUser = createAsyncThunk(
       const res = await axios.get("/users/current");
       return res.data;
     } catch (e) {
-      return rejectWithValue(e.message);
+      return rejectWithValue(e.status);
     }
   }
 );

@@ -5,3 +5,7 @@
 /* body {
   font-family: 'Poppins'
 } */
+
+:root:has(.no-doc-scroll) {
+  overflow: hidden;
+}

@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import "./App.css";
 import { SharedLayout } from "./components/SharedLayout/SharedLayout";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./hooks/useAuth";
 import { lazy, Suspense, useEffect } from "react";
 import { getCurrentUser } from "./redux/auth/auth-operations";
@@ -12,6 +12,7 @@ import { ChildDashboard } from "./pages/children/ChildDashboard";
 import { ParentSharedLayout } from "./components/SharedLayout/parent/ParentSharedLayout";
 import { TasksList } from "./pages/TasksList";
 import { TaskPage } from "./components/TaskPage";
+import { useSaveCurrentPath } from "./hooks/useSaveCurrentPath ";
 
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
@@ -19,10 +20,15 @@ const LoginPage = lazy(() => import("./pages/LoginPage"));
 function App() {
   const dispatch = useDispatch();
   const { isLoading } = useAuth();
+  const navigate = useNavigate();
+
+  useSaveCurrentPath();
+  const cp = localStorage.getItem("lastVisitedPath");
 
   useEffect(() => {
     dispatch(getCurrentUser());
-  }, [dispatch]);
+    cp !== "null" && navigate(cp);
+  }, [dispatch, cp, navigate]);
 
   return (
     !isLoading && (
@@ -48,18 +54,12 @@ function App() {
             path="/"
             element={<PrivateRoute component={<SharedLayout />} />}
           >
-            <Route
-              path="parent"
-              element={<PrivateRoute component={<ParentDashboard />} />}
-            >
-              <Route
-                path=":childId/tasks"
-                element={<PrivateRoute component={<TasksList />} />}
-              />
+            <Route path="parent" element={<ParentDashboard />}>
+              <Route path=":childId/tasks" element={<TasksList />} />
             </Route>
             <Route
               path="parent/:childId/tasks/:taskId"
-              element={<PrivateRoute component={<TaskPage />} />}
+              element={<TaskPage />}
             />
           </Route>
           <Route

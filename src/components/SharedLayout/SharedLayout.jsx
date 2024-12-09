@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { getChildrenByFamilyId } from "../../redux/children/children-operations";
 import { Header } from "./parent/Header/Header";
 import { SideBar } from "./parent/SideBar/SideBar";
+import { Footer } from "../Footer";
 
 export const SharedLayout = () => {
   const { user, role } = useAuth();
@@ -17,14 +18,14 @@ export const SharedLayout = () => {
     <>
       <Header />
       <SideBar role={role} userId={user.id} />
-      <main className="ml-[250px] bg-greybg">
-        <div className="w-full px-16 pt-9">
+      <main className=" bg-greybg font-['Poppins']">
+        <div className=" ml-[250px] pt-[106px] px-16 ">
           <Suspense fallback={null}>
-            {/* добавить сюда контейнер который будет ограничивать ширину всего контента */}
             <Outlet />
           </Suspense>
         </div>
       </main>
+      <Footer />
     </>
   );
 };

@@ -10,7 +10,7 @@ export const getAllTasks = createAsyncThunk(
       const { data } = await axios.get(`${childId}/tasks`);
       return data;
     } catch (e) {
-      return rejectWithValue(e.message);
+      return rejectWithValue(e.status);
     }
   }
 );
@@ -20,7 +20,7 @@ export const getTaskById = async (taskId) => {
     const { data } = await axios.get(`/tasks/${taskId}`);
     return data;
   } catch (e) {
-    throw new Error(e.message);
+    throw new Error(e.status);
   }
 }
 
