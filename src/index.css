@@ -9,3 +9,44 @@ body {
 :root:has(.no-doc-scroll) {
   overflow: hidden;
 }
+
+.scroll {
+  &::-webkit-scrollbar-thumb {
+      background-color: #05304f ;
+      border-radius: 4px;
+      margin-right: 20px;
+    }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    margin-right: 20px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 4px;
+  }
+}
+
+.custom-input {
+  height: 36px !important;
+  border-radius: 0.5rem !important;
+  border-color: #37729C !important;
+  font-family: 'Poppins' !important;
+  color: white;
+  text-align: start !important;
+
+  &::placeholder {
+    color: white;
+    font-family: 'Poppins';
+  }
+}
+
+.custom-input:hover {
+  border-color: #fbb13c !important;
+  transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+.custom-header {
+  padding: 16px 16px !important;
+  background-color: #bb7f32 !important;
+}
