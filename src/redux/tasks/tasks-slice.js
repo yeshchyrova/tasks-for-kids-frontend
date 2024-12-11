@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllTasks } from "./tasks-operations";
+import { addTask, getAllTasks } from "./tasks-operations";
 import {
   handleError,
   handleFulfilled,
@@ -17,7 +17,15 @@ const tasksSlice = createSlice({
     builder
       .addCase(getAllTasks.pending, handlePending)
       .addCase(getAllTasks.fulfilled, handleFulfilled)
-      .addCase(getAllTasks.rejected, handleError);
+      .addCase(getAllTasks.rejected, handleError)
+
+      .addCase(addTask.pending, handlePending)
+      .addCase(addTask.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = null;
+        state.items.pop(payload);
+      })
+      .addCase(addTask.rejected, handleError);
   },
 });
 

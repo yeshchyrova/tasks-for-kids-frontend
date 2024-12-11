@@ -22,6 +22,14 @@ export const formatDeadline = (deadline) => {
   );
 };
 
+export const formatDate = (date)  => {
+  if (!date) return null;
+  console.log("length: ", String(date.month).length);
+  const updatedMonth =
+    String(date.month).length === 1 ? `0${date.month}` : date.month;
+  return `${date.year}-${updatedMonth}-${date.day}T${date.hour}:${date.minute}:00`;
+}
+
 export const firstLetter = (name) => {
   return name.charAt(0);
 };
