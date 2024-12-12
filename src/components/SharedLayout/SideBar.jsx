@@ -22,9 +22,11 @@ export const SideBar = ({ role, userId }) => {
           <li>
             <NavLink
               className={({ isActive }) =>
-                isActive
-                  ? "mb-6 text-lg  text-yellow"
-                  : "mb-6 text-lg text-white hover:text-yellow transition-colors"
+                `mb-6 text-lg ${
+                  isActive
+                    ? "text-yellow"
+                    : "text-white hover:text-yellow transition-colors"
+                }`
               }
               to={role === "PARENT" ? "/parent" : "/child"}
             >
@@ -36,9 +38,11 @@ export const SideBar = ({ role, userId }) => {
               <li>
                 <NavLink
                   className={({ isActive }) =>
-                    isActive
-                      ? "mb-6 text-lg text-yellow"
-                      : "mb-6 text-lg text-white hover:text-yellow transition-colors"
+                    `mb-6 text-lg ${
+                      isActive
+                        ? "text-yellow"
+                        : "text-white hover:text-yellow transition-colors"
+                    }`
                   }
                   to="/confirmation"
                 >
@@ -62,9 +66,11 @@ export const SideBar = ({ role, userId }) => {
                         <li key={id}>
                           <NavLink
                             className={({ isActive }) =>
-                              isActive
-                                ? "font-normal text-yellow"
-                                : "font-normal text-white hover:text-yellow transition-colors"
+                              `font-normal ${
+                                isActive
+                                  ? "text-yellow"
+                                  : "text-white hover:text-yellow transition-colors"
+                              }`
                             }
                             to={`/statistics/${id}`}
                           >
@@ -79,7 +85,18 @@ export const SideBar = ({ role, userId }) => {
             </>
           ) : (
             <li>
-              <NavLink to={`/statistics/${userId}`}>Statistics</NavLink>
+              <NavLink
+                to={`/statistics/${userId}`}
+                className={({ isActive }) =>
+                  `text-lg ${
+                    isActive
+                      ? "text-yellow"
+                      : "text-white hover:text-yellow transition-colors"
+                  }`
+                }
+              >
+                Statistics
+              </NavLink>
             </li>
           )}
           {/* <NavLink to={"/settings"}>Settings</NavLink> */}

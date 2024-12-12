@@ -3,7 +3,7 @@ import "./App.css";
 import { SharedLayout } from "./components/SharedLayout/SharedLayout";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useAuth } from "./hooks/useAuth";
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useRef } from "react";
 import { getCurrentUser } from "./redux/auth/auth-operations";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { RestrictedRoute } from "./components/RestrictedRoute";
@@ -21,13 +21,19 @@ function App() {
   const { isLoading } = useAuth();
   const navigate = useNavigate();
 
-  useSaveCurrentPath();
-  const cp = localStorage.getItem("lastVisitedPath");
+  useSaveCurrentPath()
+
+  const isInitialRender = useRef(true);
 
   useEffect(() => {
-    dispatch(getCurrentUser());
-    cp !== "null" && navigate(cp);
-  }, [dispatch, cp, navigate]);
+    const cp = localStorage.getItem("lastVisitedPath");
+
+    if (isInitialRender.current) {
+      dispatch(getCurrentUser());
+      isInitialRender.current = false;
+      cp !== "null" && cp !== "/login" && navigate(cp, { replace: true });
+    }
+  }, [dispatch, navigate]);
 
   return (
     !isLoading && (

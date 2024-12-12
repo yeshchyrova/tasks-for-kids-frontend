@@ -15,7 +15,6 @@ export const AddNewTaskModal = ({ closeFn }) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm();
 
   const { user } = useAuth();
@@ -44,7 +43,6 @@ export const AddNewTaskModal = ({ closeFn }) => {
 
 
   const onSubmit = (data) => {
-    console.log(data); // title and desc trim ()
     const formattedData = {
       title: data.title.trim(),
       description:
@@ -55,13 +53,8 @@ export const AddNewTaskModal = ({ closeFn }) => {
       parentId: user.id,
       childId: Number(childId),
     };
-    console.log("Formatted data: ", formattedData);
     dispatch(addTask(formattedData));
     closeFn();
-    // const updatedData = { login: data.email, password: data.password };
-    // dispatch(login(updatedData));
-    //close modal
-    // reload
   };
 
   return (

@@ -8,7 +8,7 @@ import { Header } from "./Header";
 import { SideBar } from "./SideBar";
 
 export const SharedLayout = () => {
-  const { user, role } = useAuth();
+  const { user, role, isLoading } = useAuth();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,16 +16,21 @@ export const SharedLayout = () => {
   }, [dispatch, user.familyId, role]);
   return (
     <>
-      <Header />
-      <SideBar role={role} userId={user.id} />
-      <main className="font-['Poppins']">
-        <div className=" ml-[250px] pt-[106px] px-16 ">
-          <Suspense fallback={null}>
-            <Outlet />
-          </Suspense>
-        </div>
-      </main>
-        <Footer />
+      {isLoading && <p>Loading...</p>}
+      {role && (
+        <>
+          <Header />
+          <SideBar role={role} userId={user.id} />
+          <main className="font-['Poppins']">
+            <div className=" ml-[250px] pt-[106px] px-16">
+              <Suspense fallback={null}>
+                <Outlet />
+              </Suspense>
+            </div>
+          </main>
+          <Footer />
+        </>
+      )}
     </>
   );
 };
