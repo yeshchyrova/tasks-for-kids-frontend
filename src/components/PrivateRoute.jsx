@@ -2,8 +2,9 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 export const PrivateRoute = ({ component: Component }) => {
-  const { isLoading, error } = useAuth();
-  const shouldRedirect = error && !isLoading;
+  const { isLoading, error, isLoggedIn } = useAuth();
+  const shouldRedirect = error && !isLoading && !isLoggedIn;
+  console.log("should redirect: ", shouldRedirect);
 
   return isLoading ? (
     <p>Loading...</p>

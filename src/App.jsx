@@ -7,8 +7,7 @@ import { lazy, Suspense, useEffect, useRef } from "react";
 import { getCurrentUser } from "./redux/auth/auth-operations";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { RestrictedRoute } from "./components/RestrictedRoute";
-import { ParentDashboard } from "./pages/parents/ParentDashboard";
-import { ChildDashboard } from "./pages/children/ChildDashboard";
+import { Dashboard } from "./pages/Dashboard";
 import { TasksList } from "./components/Task/TasksList";
 import { TaskPage } from "./pages/TaskPage";
 import { useSaveCurrentPath } from "./hooks/useSaveCurrentPath ";
@@ -21,7 +20,7 @@ function App() {
   const { isLoading } = useAuth();
   const navigate = useNavigate();
 
-  useSaveCurrentPath()
+  useSaveCurrentPath();
 
   const isInitialRender = useRef(true);
 
@@ -59,7 +58,10 @@ function App() {
             path="/"
             element={<PrivateRoute component={<SharedLayout />} />}
           >
-            <Route path="parent" element={<ParentDashboard />}>
+            <Route path="parent" element={<Dashboard />}>
+              <Route path=":childId/tasks" element={<TasksList />} />
+            </Route>
+            <Route path="child" element={<Dashboard />}>
               <Route path=":childId/tasks" element={<TasksList />} />
             </Route>
             <Route

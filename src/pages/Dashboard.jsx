@@ -1,16 +1,26 @@
-import React, { Suspense } from "react";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
-import { formatName } from "../../helpers/utils";
+import React, { Suspense, useEffect, useRef } from "react";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { formatName } from "../helpers/utils";
 import { useSelector } from "react-redux";
-import { selectChildren } from "../../redux/children/children-selectors";
-import { useAuth } from "../../hooks/useAuth";
+import { selectChildren } from "../redux/children/children-selectors";
+import { useAuth } from "../hooks/useAuth";
 
-export const ParentDashboard = () => {
+export const Dashboard = () => {
   const children = useSelector(selectChildren);
   const { user, role } = useAuth();
   const location = useLocation();
   const isNotChosen = location.pathname === "/parent";
   const idPath = location.pathname.slice(8, 10);
+  const navigate = useNavigate();
+
+  const isInitialRender = useRef(true);
+
+  useEffect(() => {
+    if (role === "CHILD" && isInitialRender.current) {
+      isInitialRender.current = false;
+      navigate(`/child/${user.id}/tasks`, { replace: true });
+    }
+  }, [navigate, role, user.id]);
 
   return (
     <>
