@@ -23,7 +23,7 @@ const tasksSlice = createSlice({
       .addCase(addTask.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = null;
-        state.items.pop(payload);
+        state.items.unshift(payload);
       })
       .addCase(addTask.rejected, handleError);
   },

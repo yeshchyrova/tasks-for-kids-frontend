@@ -11,6 +11,10 @@ body {
     }
 }
 
+p {
+  line-height: normal !important;
+}
+
 :root:has(.no-doc-scroll) {
   overflow: hidden;
 }
@@ -57,10 +61,28 @@ body {
 }
 
 .calender-modal {
-  bottom: -50px !important;
-  right: -90px !important;
+  bottom: -150px !important;
+  right: -180px !important;
+
 }
 
 .no-selected-child-text-block {
   height: calc(100vh - 301px) !important;
+}
+
+.parent-dashboard {
+    min-height: calc(100vh - 325px) !important;
+}
+
+.child-dashboard {
+    min-height: calc(100vh - 273px) !important;
+}
+
+.task-info-page {
+  min-height: calc(100vh - 204px) !important;
+}
+
+.spent-time-select {
+  max-height: 40px ! important;
+  overflow-y: scroll ! important;
 }

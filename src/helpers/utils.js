@@ -22,14 +22,20 @@ export const formatDeadline = (deadline) => {
   );
 };
 
-export const formatDate = (date)  => {
+export const formatDate = (date) => {
+  console.log(date)
   if (!date) return null;
-  console.log("length: ", String(date.month).length);
+  const updatedMin =
+    String(date.minute).length === 1 ? `0${date.minute}` : date.minute;
   const updatedMonth =
     String(date.month).length === 1 ? `0${date.month}` : date.month;
-  return `${date.year}-${updatedMonth}-${date.day}T${date.hour}:${date.minute}:00`;
+  return `${date.year}-${updatedMonth}-${date.day}T${date.hour}:${updatedMin}:00`;
 }
 
 export const firstLetter = (name) => {
   return name.charAt(0);
+};
+
+export const formatDurationToISO8601 = ({ days, hours, months, minutes }) => {
+  return `P${months}M${days}DT${hours}H${minutes}M0S`;
 };

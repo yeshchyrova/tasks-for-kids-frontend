@@ -24,7 +24,7 @@ export const Dashboard = () => {
 
   return (
     <>
-      <p className="text-red text-[38px] font-bold mb-3">Hello, {user.name}</p>
+      <p className={`text-red text-[38px] font-bold mb-3 ${role==="CHILD" && "mb-10"}`}>Hello, {user.name}</p>
       {role === "PARENT" && (
         <ul className={`flex justify-around ${isNotChosen ? "" : "mb-5"}`}>
           {children.map(({ id, name }) => (

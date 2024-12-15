@@ -65,7 +65,7 @@ function App() {
               <Route path=":childId/tasks" element={<TasksList />} />
             </Route>
             <Route
-              path="parent/:childId/tasks/:taskId"
+              path="/:childId/tasks/:taskId"
               element={<TaskPage />}
             />
           </Route>

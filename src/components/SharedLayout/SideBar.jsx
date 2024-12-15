@@ -12,7 +12,7 @@ export const SideBar = ({ role, userId }) => {
       <div className="w-[151px] mt-10">
         <div className="mb-16">
           <Link
-            to={`/${role.toLowerCase()}`}
+            to={role === "PARENT" ? "/parent" : `/child/${userId}/tasks`}
             className="text-white text-[32px] font-normal font-['Quando'] w-full leading-none"
           >
             Tasks Manager
@@ -28,7 +28,7 @@ export const SideBar = ({ role, userId }) => {
                     : "text-white hover:text-yellow transition-colors"
                 }`
               }
-              to={role === "PARENT" ? "/parent" : "/child"}
+              to={role === "PARENT" ? "/parent" : `/child/${userId}/tasks`}
             >
               Home
             </NavLink>
