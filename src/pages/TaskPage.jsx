@@ -3,7 +3,6 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import { getTaskById } from "../redux/tasks/tasks-operations";
 import { formatDeadline } from "../helpers/utils";
 import { useAuth } from "../hooks/useAuth";
-import { ModalWrapper } from "../components/modals/ModalWrapper";
 import { CompleteTaskModal } from "../components/modals/CompleteTaskModal/CompleteTaskModal";
 import { ConfirmModal } from "../components/modals/ConfirmModal";
 
@@ -11,6 +10,7 @@ export const TaskPage = () => {
   const { taskId } = useParams();
   const { role } = useAuth();
   const [task, setTask] = useState(null);
+  // const [taskStatus, setTaskStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
@@ -32,11 +32,11 @@ export const TaskPage = () => {
     try {
       const data = await getTaskById(id);
       setTask(data);
+      // setTaskStatus(data?.id);
       setIsLoading(false);
       setError(null);
     } catch (e) {
       setError(e.message);
-      console.log(e);
     }
   };
 
@@ -82,6 +82,26 @@ export const TaskPage = () => {
               <p>Assigned to</p>
               <p>{task.childName}</p>
             </div>
+            {task.status !== "TODO" && (
+              <>
+                <div className="flex gap-4">
+                  <p>Report</p>
+                  <p>{task.textReport}</p>
+                </div>
+                <div className="flex gap-4">
+                  <p>Report time</p>
+                  <p>{task.reportTime}</p>
+                </div>
+                <div className="flex gap-4">
+                  <p>Spent time</p>
+                  <p>{task.spentTime}</p>
+                </div>
+                <div className="flex gap-4">
+                  <p>Mood</p>
+                  <p>{task.mood}</p>
+                </div>
+              </>
+            )}
           </div>
           {role === "CHILD" && task.status === "TODO" && (
             <button type="button" onClick={toggleCompleteModalOpen}>
@@ -99,6 +119,7 @@ export const TaskPage = () => {
               title={task.title}
               reportType={task.reportType}
               taskId={task.id}
+              rerenderFn={fetchTask}
             />
           )}
           {isConfirmModalOpen && (

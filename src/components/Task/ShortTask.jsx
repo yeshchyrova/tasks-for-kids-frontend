@@ -17,7 +17,7 @@ export const ShortTask = ({
   const location = useLocation();
 
   return (
-    <div className="w-[340px] bg-white rounded-lg border-[3px] border-red px-5 py-[14px]">
+    <div className="w-[350px] bg-white rounded-lg border-[3px] border-red px-5 py-[14px]">
       <div className="flex justify-between items-start mb-1">
         <p className="text-dark text-lg font-bold leading-normal">
           {sliceTitle(title)}

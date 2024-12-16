@@ -29,7 +29,18 @@ export const addTask = createAsyncThunk(
   async (task, { rejectWithValue }) => {
     try {
       const { data } = await axios.post("/tasks", task);
-      console.log("returned data: ", data);
+      return data;
+    } catch (e) {
+      return rejectWithValue(e.status);
+    }
+  }
+);
+
+export const completeTask = createAsyncThunk(
+  "tasks/completeTask",
+  async (task, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post("/complete", task);
       return data;
     } catch (e) {
       return rejectWithValue(e.status);

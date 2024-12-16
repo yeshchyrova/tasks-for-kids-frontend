@@ -14,9 +14,16 @@ import { Textarea } from "../utils/Textarea";
 import { SpentTimeBlock } from "./SpentTimeBlock";
 import { MoodBlock } from "./MoodBlock";
 import { ButtonsList } from "../utils/ButtonsList";
-import { formatDurationToISO8601 } from "../../../helpers/utils";
+import { formatDate, formatDurationToISO8601 } from "../../../helpers/utils";
+import { completeTask } from "../../../redux/tasks/tasks-operations";
 
-export const CompleteTaskModal = ({ closeFn, submitFn, title, reportType, taskId }) => {
+export const CompleteTaskModal = ({
+  closeFn,
+  rerenderFn,
+  title,
+  reportType,
+  taskId,
+}) => {
   const {
     register,
     handleSubmit,
@@ -38,11 +45,9 @@ export const CompleteTaskModal = ({ closeFn, submitFn, title, reportType, taskId
   const [dateError, setDateError] = useState(false);
 
   useEffect(() => {
-    if (!date) setDateError(true)
-    else setDateError(false)
+    if (!date) setDateError(true);
+    else setDateError(false);
   }, [date]);
-
-  
 
   const onSubmit = (data) => {
     if (
@@ -52,34 +57,33 @@ export const CompleteTaskModal = ({ closeFn, submitFn, title, reportType, taskId
       data.months === "0"
     ) {
       setSpentTimeError(true);
-      return
+      return;
     }
     if (reportType && !date) {
       setDateError(true);
       return;
     }
-      const formattedDuration = formatDurationToISO8601({
-        days: data.days,
-        hours: data.hours,
-        months: data.months,
-        minutes: data.minutes,
-      });
-    
-  //    Long id;
-  // String photoReport;
-  // String textReport;
-  // Duration spentTime;
-  // Mood mood;
-    
+    const formattedDuration = formatDurationToISO8601({
+      days: data.days,
+      hours: data.hours,
+      months: data.months,
+      minutes: data.minutes,
+    });
+
     const formattedData = {
       id: taskId,
       photoReport: reportType === "PHOTO" ? data.photoReport : null,
       textReport: reportType === "TEXT" ? data.report : null,
-      spentTime: reportType ? formattedDuration : null,
+      reportTime: reportType ? formatDate(date) : null,
+      spentTime: formattedDuration,
       mood: data.mood,
     };
-      console.log("formattedData: ", formattedData);
-    
+    console.log("formattedData: ", formattedData);
+    console.log("formattedDuration: ", formattedDuration);
+
+    dispatch(completeTask(formattedData));
+    rerenderFn(taskId);
+    closeFn();
   };
 
   return (
@@ -101,12 +105,12 @@ export const CompleteTaskModal = ({ closeFn, submitFn, title, reportType, taskId
               size={{ rows: "5", cols: "33" }}
             />
             {errors.report?.type === "maxLength" && (
-              <span className={`${errorClasses} left-[110px]`}>
+              <span className={`${errorClasses} left-[72px]`}>
                 Max length 500 characters exceeded
               </span>
             )}
             {errors.report?.type === "required" && (
-              <span className={`${errorClasses} left-[110px]`}>
+              <span className={`${errorClasses} left-[72px]`}>
                 Report is required
               </span>
             )}

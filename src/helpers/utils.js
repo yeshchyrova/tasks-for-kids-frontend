@@ -10,32 +10,37 @@ export const sliceTitle = (title) => {
 
 export const formatDeadline = (deadline) => {
   if (!deadline) return "No deadline";
-  const delimiter = deadline.indexOf("T");
-  const date = deadline.slice(0, delimiter);
-  const formattedDate = date.split("-").reverse().join(".");
-  const time = deadline.slice(delimiter + 1, deadline.length - 3);
+  const [year, month, day, hour, minute] = deadline;
   return (
     <div className="flex gap-[6px]">
-      <p>{formattedDate}</p>
-      <p>{time}</p>
+      <p>{`${String(day).padStart(2, "0")}.${String(month).padStart(
+        2,
+        "0"
+      )}.${year}`}</p>
+      <p>{`${String(hour).padStart(2, "0")}:${String(minute).padStart(
+        2,
+        "0"
+      )}`}</p>
     </div>
   );
 };
 
 export const formatDate = (date) => {
-  console.log(date)
   if (!date) return null;
-  const updatedMin =
-    String(date.minute).length === 1 ? `0${date.minute}` : date.minute;
-  const updatedMonth =
-    String(date.month).length === 1 ? `0${date.month}` : date.month;
-  return `${date.year}-${updatedMonth}-${date.day}T${date.hour}:${updatedMin}:00`;
-}
+  return `${date.year}-${String(date.month).padStart(2, "0")}-${String(
+    date.day
+  ).padStart(2, "0")}T${String(date.hour).padStart(2, "0")}:${String(
+    date.minute
+  ).padStart(2, "0")}:00`;
+};
 
 export const firstLetter = (name) => {
   return name.charAt(0);
 };
 
 export const formatDurationToISO8601 = ({ days, hours, months, minutes }) => {
-  return `P${months}M${days}DT${hours}H${minutes}M0S`;
+  return `P${months !== "0" ? `${months}M` : ""}${
+    days !== "0" ? `${days}D` : ""
+  }T${hours}H${minutes}M0S`;
 };
+// months !== "0" ? (months === "1" ? "1 month " : `${months} months `) : "";
