@@ -53,6 +53,7 @@ export const AddNewTaskModal = ({ closeFn }) => {
       parentId: user.id,
       childId: Number(childId),
     };
+    console.log(formattedData)
     dispatch(addTask(formattedData));
     closeFn();
   };
@@ -156,7 +157,7 @@ export const AddNewTaskModal = ({ closeFn }) => {
               defaultValue="none"
             >
               <option value="TEXT">Text</option>
-              <option value="PHOTO">Photo</option>
+              {/* <option value="PHOTO">Photo</option> */}
               <option value="none">No report</option>
             </select>
           </div>

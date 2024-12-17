@@ -1,7 +1,8 @@
 import React from "react";
-import { firstLetter, formatDeadline, sliceTitle } from "../../helpers/utils";
+import { firstLetter, formatDeadline, formatName, sliceTitle } from "../../helpers/utils";
 import { Status } from "./Status";
 import { Link, useLocation } from "react-router-dom";
+import { NameCircle } from "./NameCircle";
 
 export const ShortTask = ({
   item: {
@@ -20,11 +21,12 @@ export const ShortTask = ({
     <div className="w-[350px] bg-white rounded-lg border-[3px] border-red px-5 py-[14px]">
       <div className="flex justify-between items-start mb-1">
         <p className="text-dark text-lg font-bold leading-normal">
-          {sliceTitle(title)}
+          {sliceTitle(formatName(title))}
         </p>
         <Status status={status} />
       </div>
       <div className="text-red text-sm font-semibold mb-[24px]">
+        
         {formatDeadline(deadline)}
       </div>
       <div className="flex justify-between items-center">
@@ -32,20 +34,12 @@ export const ShortTask = ({
           <p className="text-center text-yellow text-sm font-semibold">
             From:{" "}
           </p>
-          <div className="w-[28px] h-[28px] bg-[#d0ecff] rounded-full border-2 border-blue flex justify-center items-center">
-            <p className="text-center text-blue text-[15px] font-bold">
-              {firstLetter(parentName)}
-            </p>
-          </div>
+          <NameCircle name={parentName} role="PARENT" />
         </div>
 
         <div className="flex justify-between items-center gap-2">
           <p className="text-center text-yellow text-sm font-semibold">To: </p>
-          <div className="w-[28px] h-[28px] bg-[#ffe4c3] rounded-full border-2 border-brown flex justify-center items-center">
-            <p className="text-center text-brown text-[15px] font-bold">
-              {firstLetter(childName)}
-            </p>
-          </div>
+          <NameCircle name={childName} role="CHILD" />
         </div>
 
         <Link

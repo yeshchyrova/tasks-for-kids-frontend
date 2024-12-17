@@ -82,7 +82,7 @@ export const CompleteTaskModal = ({
     console.log("formattedDuration: ", formattedDuration);
 
     dispatch(completeTask(formattedData));
-    rerenderFn(taskId);
+    // rerenderFn(taskId);
     closeFn();
   };
 

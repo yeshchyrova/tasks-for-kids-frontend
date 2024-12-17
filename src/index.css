@@ -86,3 +86,11 @@ p {
   max-height: 40px ! important;
   overflow-y: scroll ! important;
 }
+
+.no-tasks-found {
+  height: calc(100vh - 390px) !important;
+}
+
+.status{
+  line-height: 1 !important; 
+}

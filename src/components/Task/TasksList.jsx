@@ -41,15 +41,19 @@ export const TasksList = () => {
             </button>
           )}
           {error === 404 ? (
-            <p>No tasks found :(</p>
+            <div className="flex justify-center items-start no-tasks-found">
+              <p className="w-[280px] text-center text-grey text-xl font-medium mt-[100px]">
+                No tasks found
+              </p>
+            </div>
           ) : (
-              <ul className="grid grid-cols-3 gap-y-11 w-full mb-5">
-                {items.map((item) => (
-                  <li key={item.id}>
-                    <ShortTask item={item} />
-                  </li>
-                ))}
-              </ul>
+            <ul className="grid grid-cols-3 gap-y-11 w-full mb-5">
+              {items.map((item) => (
+                <li key={item.id}>
+                  <ShortTask item={item} />
+                </li>
+              ))}
+            </ul>
           )}
           {isOpen && <AddNewTaskModal closeFn={onClose} />}
         </div>

@@ -43,4 +43,43 @@ export const formatDurationToISO8601 = ({ days, hours, months, minutes }) => {
     days !== "0" ? `${days}D` : ""
   }T${hours}H${minutes}M0S`;
 };
-// months !== "0" ? (months === "1" ? "1 month " : `${months} months `) : "";
+
+export const formatDurationFromISO = (duration) => {
+  const regex = /P(?:T)?(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/;
+  const match = duration.match(regex);
+
+  if (!match) {
+    return "Invalid duration format";
+  }
+
+  const hours = match[1] ? parseInt(match[1], 10) : 0;
+  const minutes = match[2] ? parseInt(match[2], 10) : 0;
+  const seconds = match[3] ? parseInt(match[3], 10) : 0;
+
+  const parts = [];
+  if (hours > 0) parts.push(`${hours} hour${hours > 1 ? "s" : ""}`);
+  if (minutes > 0) parts.push(`${minutes} minute${minutes > 1 ? "s" : ""}`);
+  if (seconds > 0) parts.push(`${seconds} second${seconds > 1 ? "s" : ""}`);
+
+  return parts.length > 0 ? parts.join(" ") : "0 seconds";
+};
+
+export const formatDateTime = (input) => {
+  if (input.length !== 5) {
+    return "Invalid input format";
+  }
+
+  const year = input[0];
+  const month = input[1];
+  const day = input[2];
+  const hours = input[3];
+  const minutes = input[4];
+
+  return `${String(day).padStart(2, "0")}.${String(month).padStart(
+    2,
+    "0"
+  )}.${year} ${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+    2,
+    "0"
+  )}`;
+};

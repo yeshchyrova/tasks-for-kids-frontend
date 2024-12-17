@@ -35,7 +35,7 @@ export const SideBar = ({ role, userId }) => {
           </li>
           {role === "PARENT" ? (
             <>
-              <li>
+              {/* <li>
                 <NavLink
                   className={({ isActive }) =>
                     `mb-6 text-lg ${
@@ -48,7 +48,7 @@ export const SideBar = ({ role, userId }) => {
                 >
                   Confirmation
                 </NavLink>
-              </li>
+              </li> */}
               <li>
                 <div>
                   <button
