@@ -1,7 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { BASE_HOST_URL } from "../constants";
 
-axios.defaults.baseURL = "http://localhost:8080";
+axios.defaults.baseURL = BASE_HOST_URL;
 
 export const getChildrenByFamilyId = createAsyncThunk(
   "children/getChildrenByFamilyId",

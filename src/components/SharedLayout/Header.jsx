@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 import { LogoutModal } from "../modals/LogoutModal";
+import { AddNewMemberModal } from "../modals/AddNewMemberModal";
 
 export const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [isAddMemberModalOpen, setIsAddMemberModalOpen] = useState(false);
 
   const handleLogout = () => {
-    setIsOpen(true);
+    setIsLogoutModalOpen(true);
   };
 
-  const openModal = () => {
-    console.log("Add family modal is open!");
+  const openAddMemberModal = () => {
+    setIsAddMemberModalOpen(true);
   };
+
+  const closeAddMemberModal = () => { 
+    setIsAddMemberModalOpen(false);
+  }
 
   return (
     <>
@@ -18,7 +24,7 @@ export const Header = () => {
         <button
           className="bg-red rounded-lg py-[8px] px-[16px] text-white text-sm font-medium font-['Poppins']"
           type="button"
-          onClick={openModal}
+          onClick={openAddMemberModal}
         >
           Add family member
         </button>
@@ -29,10 +35,11 @@ export const Header = () => {
           Logout
         </button>
       </header>
-      {isOpen && (
-        <LogoutModal
-          closeModal={() => setIsOpen(false)}
-        />
+      {isLogoutModalOpen && (
+        <LogoutModal closeModal={() => setIsLogoutModalOpen(false)} />
+      )}
+      {isAddMemberModalOpen && (
+        <AddNewMemberModal onclose={closeAddMemberModal} />
       )}
     </>
   );

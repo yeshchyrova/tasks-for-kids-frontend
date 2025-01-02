@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { DtPicker } from "react-calendar-datetime-picker";
 import "react-calendar-datetime-picker/dist/style.css";
 import { useAuth } from "../../hooks/useAuth";
 import { useParams } from "react-router-dom";
@@ -10,7 +9,6 @@ import { addTask } from "../../redux/tasks/tasks-operations";
 import { ModalWrapper } from "./ModalWrapper";
 import { Calendar } from "../../helpers/Calendar";
 import {
-  buttonClasses,
   errorClasses,
   inputBlockClasses,
   inputClasses,

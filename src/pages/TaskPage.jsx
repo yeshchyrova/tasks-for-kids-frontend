@@ -19,7 +19,6 @@ export const TaskPage = () => {
   const { taskId } = useParams();
   const { role } = useAuth();
   const [task, setTask] = useState(null);
-  // const [taskStatus, setTaskStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
@@ -41,7 +40,6 @@ export const TaskPage = () => {
     try {
       const data = await getTaskById(id);
       setTask(data);
-      // setTaskStatus(data?.id);
       setIsLoading(false);
       setError(null);
     } catch (e) {

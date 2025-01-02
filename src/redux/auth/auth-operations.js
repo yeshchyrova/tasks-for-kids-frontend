@@ -1,7 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { BASE_HOST_URL } from "../constants";
 
-axios.defaults.baseURL = "http://localhost:8080";
+axios.defaults.baseURL = BASE_HOST_URL;
 
 const setAuthHeader = (token) => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -67,3 +68,11 @@ export const getCurrentUser = createAsyncThunk(
     }
   }
 );
+
+export const addFamilyMember = async (data) => {
+  try {
+    await axios.post("/member", data);
+  } catch (e) {
+    throw new Error(e.status);
+  }
+}

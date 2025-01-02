@@ -27,9 +27,6 @@ export const TasksList = () => {
 
   return (
     <div className={role === "PARENT" ? `parent-dashboard` : "child-dashboard"}>
-      {isLoading ? (
-        <p>Loading tasks...</p>
-      ) : (
         <div className="w-full">
           {role === "PARENT" && (
             <button
@@ -40,7 +37,9 @@ export const TasksList = () => {
               Add new task
             </button>
           )}
-          {error === 404 ? (
+          {isLoading ? (
+            <p>Loading tasks...</p>
+          ) : error === 404 ? (
             <div className="flex justify-center items-start no-tasks-found">
               <p className="w-[280px] text-center text-grey text-xl font-medium mt-[100px]">
                 No tasks found
@@ -57,7 +56,7 @@ export const TasksList = () => {
           )}
           {isOpen && <AddNewTaskModal closeFn={onClose} />}
         </div>
-      )}
+      
     </div>
   );
 };
