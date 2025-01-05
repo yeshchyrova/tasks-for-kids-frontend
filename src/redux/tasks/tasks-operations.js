@@ -25,6 +25,17 @@ export const getTaskById = async (taskId) => {
   }
 };
 
+export const getSpentTimeByTaskType = async (childId) => {
+  try {
+    const { data } = await axios.get(
+      `statistics/${childId}/spent-time-task-type`
+    );
+    return data;
+  } catch (e) {
+    throw new Error(e.status);
+  }
+};
+
 export const addTask = createAsyncThunk(
   "tasks/addTask",
   async (task, { rejectWithValue }) => {

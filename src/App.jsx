@@ -11,6 +11,7 @@ import { Dashboard } from "./pages/Dashboard";
 import { TasksList } from "./components/Task/TasksList";
 import { TaskPage } from "./pages/TaskPage";
 import { useSaveCurrentPath } from "./hooks/useSaveCurrentPath ";
+import { StatisticsPage } from "./pages/StatisticsPage";
 
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
@@ -64,10 +65,8 @@ function App() {
             <Route path="child" element={<Dashboard />}>
               <Route path=":childId/tasks" element={<TasksList />} />
             </Route>
-            <Route
-              path="/:childId/tasks/:taskId"
-              element={<TaskPage />}
-            />
+            <Route path="/:childId/tasks/:taskId" element={<TaskPage />} />
+            <Route path="/statistics/:childId" element={<StatisticsPage />} />
           </Route>
           <Route
             path="*"

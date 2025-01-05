@@ -48,7 +48,9 @@ export const TaskPage = () => {
   };
 
   useEffect(() => {
-    if (!isCompleteModalOpen) {fetchTask(taskId);}
+    if (!isCompleteModalOpen) {
+      fetchTask(taskId);
+    }
   }, [taskId, isCompleteModalOpen]);
 
   return (
