@@ -9,5 +9,5 @@ export const typeFilters = Object.freeze({
   homework: "homework"
 })
 
-export const BASE_HOST_URL = "http://localhost:8080";
-  // "https://family-tasks-manager-app-bbd949fd77c9.herokuapp.com/";
+export const BASE_HOST_URL =
+  "https://tasks-for-kids-backend-production.up.railway.app";

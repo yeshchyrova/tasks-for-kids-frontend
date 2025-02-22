@@ -36,6 +36,28 @@ export const getSpentTimeByTaskType = async (childId) => {
   }
 };
 
+
+export const getTasksByMood = async (childId, mood) => {
+  try {
+    const { data } = await axios.get(
+      `statistics/${childId}/tasks-by-mood/${mood}`
+    );
+    return data;
+  } catch (e) {
+    throw new Error(e.status);
+  }
+};
+
+
+export const getExpiredTasks = async (childId) => {
+  try {
+    const { data } = await axios.get(`statistics/${childId}/expired-tasks`);
+    return data;
+  } catch (e) {
+    throw new Error(e.status);
+  }
+};
+
 export const addTask = createAsyncThunk(
   "tasks/addTask",
   async (task, { rejectWithValue }) => {
